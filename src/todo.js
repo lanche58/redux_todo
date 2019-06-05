@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input, Button, List } from 'antd';
-import 'antd/dist/antd.css';
 import store from './store';
-import {getInputValueChangeAction, getAddListAction, getDeleteListAction} from './actionCreators';
+import ToDoUI from './todoUI';
+import {getInputValueChangeAction, getAddListAction, getDeleteListAction, getInitialListAction} from './actionCreators';
+import axios from 'axios';
 
 class ToDo extends React.Component {
     constructor(props) {
@@ -12,18 +12,27 @@ class ToDo extends React.Component {
     }
     render() {
         return (
-            <div style={{padding: "10px"}}>
-                <Input style={{width: "300px"}} onChange={this.changeHandle.bind(this)} value={this.state.inputValue} size="large" placeholder="todo"/>
-                <Button onClick={this.addListHandle.bind(this)} style={{height: "40px", verticalAlign: "top", marginLeft: "10px", width: "80px"}} type="primary">add</Button>
-                <List
-                    style={{marginTop: "10px", width: "390px"}}
-                    bordered
-                    dataSource={this.state.todoList}
-                    renderItem={(item, index) => <List.Item onClick={this.deleteListHandle.bind(this, index)}>{item}</List.Item>}
-                />
-            </div>
+            <ToDoUI 
+                inputValue={this.state.inputValue}
+                todoList={this.state.todoList}
+                changeHandle={this.changeHandle.bind(this)}
+                addListHandle={this.addListHandle.bind(this)}
+                deleteListHandle={this.deleteListHandle.bind(this)}
+            />
         )
     }
+
+    // 从接口获取数据给todoList一些初始值
+    // 模拟mock
+    // 使用asixo
+
+    componentDidMount() {
+        axios.get('/todo.json').then((res) => {
+            const data = res.data;
+            store.dispatch(getInitialListAction(data));
+        });
+    }
+
 
     changeHandle(e) {
         store.dispatch(getInputValueChangeAction(e.target.value));

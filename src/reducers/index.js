@@ -1,4 +1,4 @@
-import {CHANGE_INPUT_VALUE, ADD_LIST, DELETE_LIST} from '../actionTypes';
+import {CHANGE_INPUT_VALUE, ADD_LIST, DELETE_LIST, INIT_LIST} from '../actionTypes';
 const defaultState = {
     inputValue: "",
     todoList: []
@@ -17,6 +17,9 @@ export default function(state = defaultState, action) {
             return newState;
         case DELETE_LIST:
             newState.todoList.splice(action.index, 1);
+            return newState;
+        case INIT_LIST:
+            newState.todoList = newState.todoList.concat(action.data);
             return newState;
         default:
             return state;
