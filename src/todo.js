@@ -1,8 +1,7 @@
 import React from 'react';
 import store from './store';
 import ToDoUI from './todoUI';
-import {getInputValueChangeAction, getAddListAction, getDeleteListAction, getInitialListAction} from './actionCreators';
-import axios from 'axios';
+import {getInputValueChangeAction, getAddListAction, getDeleteListAction, getAsyncDataAction} from './actionCreators';
 
 class ToDo extends React.Component {
     constructor(props) {
@@ -25,14 +24,9 @@ class ToDo extends React.Component {
     // 从接口获取数据给todoList一些初始值
     // 模拟mock
     // 使用asixo
-
     componentDidMount() {
-        axios.get('/todo.json').then((res) => {
-            const data = res.data;
-            store.dispatch(getInitialListAction(data));
-        });
+        store.dispatch(getAsyncDataAction());
     }
-
 
     changeHandle(e) {
         store.dispatch(getInputValueChangeAction(e.target.value));
