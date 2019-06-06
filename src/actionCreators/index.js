@@ -1,5 +1,4 @@
-import {CHANGE_INPUT_VALUE, ADD_LIST, DELETE_LIST, INIT_LIST} from '../actionTypes';
-import axios from 'axios';
+import {CHANGE_INPUT_VALUE, ADD_LIST, DELETE_LIST, INIT_LIST, INIT_LIST_SAGA} from '../actionTypes';
 
 export const getInputValueChangeAction = (value) => {
     return {
@@ -30,11 +29,17 @@ export const getInitialListAction = (data) => {
     }
 };
 
-export const getAsyncDataAction = () => {
-    return (dispatch) => {
-        axios.get('/todo.json').then((res) => {
-            const data = res.data;
-            dispatch(getInitialListAction(data));
-        });
+export const getSagaAction = () => {
+    return {
+        type: INIT_LIST_SAGA
     }
-}
+};
+
+// export const getAsyncDataAction = () => {
+//     return (dispatch) => {
+//         axios.get('/todo.json').then((res) => {
+//             const data = res.data;
+//             dispatch(getInitialListAction(data));
+//         });
+//     }
+// }

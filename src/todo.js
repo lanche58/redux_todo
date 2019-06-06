@@ -1,7 +1,7 @@
 import React from 'react';
 import store from './store';
 import ToDoUI from './todoUI';
-import {getInputValueChangeAction, getAddListAction, getDeleteListAction, getAsyncDataAction} from './actionCreators';
+import {getInputValueChangeAction, getAddListAction, getDeleteListAction, getSagaAction} from './actionCreators';
 
 class ToDo extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class ToDo extends React.Component {
     // 模拟mock
     // 使用asixo
     componentDidMount() {
-        store.dispatch(getAsyncDataAction());
+        store.dispatch(getSagaAction());
     }
 
     changeHandle(e) {
